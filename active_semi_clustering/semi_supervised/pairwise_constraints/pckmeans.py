@@ -1,3 +1,6 @@
+""" This is an implementation of a PCKMeans algorithm
+"""
+
 import numpy as np
 
 from active_semi_clustering.exceptions import EmptyClustersException
