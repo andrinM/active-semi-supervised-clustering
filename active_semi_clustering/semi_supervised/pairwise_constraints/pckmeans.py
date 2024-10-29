@@ -80,7 +80,7 @@ class PCKMeans:
     """Keyword arguments:
     X -- data set
     x_i -- current inspected data point
-    centroids -- list of cluster_centery
+    centroids -- list of cluster_centers
     labels -- list #rows filled with -1
     c_i -- index of current cluster (calculate cost if x_i is in c_i)
 
@@ -124,7 +124,7 @@ class PCKMeans:
 
         index = list(range(X.shape[0])) # list with 0,1 ...,n where n is the #rows
         np.random.shuffle(index)
-        for x_i in index:
+        for x_i in index: # for every data point with every cluster
             labels[x_i] = np.argmin([self._objective_function(X, x_i, cluster_centers, c_i, labels, ml_graph, cl_graph, w) for c_i in range(self.n_clusters)])
 
         # Handle empty clusters
@@ -138,5 +138,8 @@ class PCKMeans:
 
         return labels
 
+    """ Getting all elements from X that are in cluster i and calculate the mean. The mean is
+    the centroid for the next iteration
+    """
     def _get_cluster_centers(self, X, labels):
         return np.array([X[labels == i].mean(axis=0) for i in range(self.n_clusters)])
